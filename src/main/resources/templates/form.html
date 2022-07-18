@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulario de envio</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>IMPORTAR TRANSAÇÕES</h1>
+		</div>
+		<div class="mb-2">
+			<ul class="nav nav-tabs">
+				<li class="nav-item"><button class="nav-link active">Choose
+						File</button></li>
+				<li class="nav-item"><button class="nav-link">No File
+						Chosen</button></li>
+			</ul>
+		</div>
+		<form action="form/arquivo" method="POST"
+			enctype="multipart/form-data">
+			<label class="alert alert-light">Selecione o arquivo para
+				realizar upload, Certifiquese que as trasações são do mesmo dia</label>
+			<div>
+				<label for="arquivo" class="btn btn-primary">Importar</label> <input
+					type="file" name="arquivo" id="arquivo" class="visually-hidden">
+				<button class="btn btn-primary" type="submit">Enviar</button>
+			</div>
+		</form>
+
+		<div>
+			<h1>ULTIMAS TRANSAÇÕES</h1>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">DATA TRANSAÇÕES</th>
+						<th scope="col">DATA IMPORTAÇÃO</th>
+						<th scope="col">IMPORTADOR</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="dado : ${dados}">
+						<td th:text="${#temporals.format(dado.dataTransacao, 'dd/MM/yyyy HH:mm')}">Otto</td>
+						<td th:text="${#temporals.format(dado.dataDoEnvio, 'dd/MM/yyyy HH:mm')}">mdo</td>
+						<td><a th:href="@{/form/detalhes(id=${dado.id})}"
+							class="btn btn-primary">Detalhes</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div><a href="/home" class="btn btn-primary d-flex justify-content-center">Menu Principal</a></div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+		crossorigin="anonymous"></script>
+</body>
+</html>
